@@ -102,13 +102,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 })
 
 .run(['$state', '$window',
-    function($state, $window) {
-        $window.addEventListener('LaunchUrl', function(event) {
-            var page = event.detail.url.split('://')[1];
+        function($state, $window) {
+            $window.addEventListener('LaunchUrl', function(event) {
+                // gets page name from url
+                var page =/.*:[/]{2}([^?]*)[?]?(.*)/.exec(event.detail.url)[1];
+                // redirects to page specified in url
                 $state.go('tab.'+ page, {});
-        });
-    }
-]);
+            });
+        }
+    ]);
 
 function handleOpenURL(url) {
     setTimeout( function() {
